@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+
+//only added 2 prototypes and the compute_disorder function
+
 //still you need to implement the ft_printf function that you did.
 void ft_O_n_squared(void);
 void ft_O_n_redical_n(void);
@@ -21,6 +24,8 @@ void search_strategy_existance(void);
 void ft_adaptive_process(void);
 void ft_Other_process(void);
 int *ft_extract_str(int argc,char **argv);//in this function you should use the split and the atoi.
+int ft_compute_disorder(int *a);//required by subject found in utils
+void ft_check_disorder(int *a);// we use the compute_disorder inside it. This function to know which algo we should use.
 
 int main(int argc,char **argv)
 {
@@ -43,9 +48,7 @@ int main(int argc,char **argv)
 	if (j == 0 || argv[j] == "adaptive")//j == 0 --> no strategy exists
 		ft_adaptive_process(str);
 	else
-	{
 		ft_Other_process(str);
-	}
 }
 /*Nour, see the --bench remarks in the pdf and continue the following main only, you can use prototypes' methods as I did, step by step
 we finish the project*/
