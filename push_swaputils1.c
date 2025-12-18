@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   push_swaputils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakaamis <aakaamis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nzahredd <nzahredd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 12:48:42 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/18 12:48:59 by aakaamis         ###   ########.fr       */
+/*   Updated: 2025/12/18 15:34:09 by nzahredd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
 
-int	ft_isdigit(int c)
+int	ft_isdigitt(int c)
 {
 	if (c < '0' || c > '9')
 		return (0);
@@ -49,12 +49,12 @@ float	ft_compute_disorder(int *a, int len)
 		return (0.0);
 	return ((float)mistakes / total_pairs);
 }
-//just converted the code found in the pdf to c code
+
 static int	check_valid_pointer(const char *nptr, int *i, int *number2)
 {
 	if ((nptr[*i] == '+' || nptr[*i] == '-')
 		&& (nptr[*i + 1] != '+' && nptr[*i + 1] != '-'
-			&& ft_isdigit(nptr[*i + 1])))
+			&& ft_isdigitt(nptr[*i + 1])))
 	{
 		if (nptr[*i] == '-')
 			*number2 *= -1;
@@ -79,9 +79,9 @@ int	ft_atoi(const char *nptr)
 	number2 = 1;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
 		i++;
-	if (check_valid_pointer(nptr, &i, &number2) || ft_isdigit(nptr[i]))
+	if (check_valid_pointer(nptr, &i, &number2) || ft_isdigitt(nptr[i]))
 	{
-		while (nptr[i] && (ft_isdigit(nptr[i])))
+		while (nptr[i] && (ft_isdigitt(nptr[i])))
 			number1 = number1 * 10 + (nptr[i++] - '0');
 		if (number2 < 0)
 			number1 *= -1;
@@ -92,4 +92,3 @@ int	ft_atoi(const char *nptr)
 		return (0);
 	}
 }
-//atoi needed to convert from char to integer
