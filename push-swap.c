@@ -115,9 +115,7 @@ int	check_numbers_validation(char *str)
 
 	i = 0;
 	if(ft_atoi_advanced(str) > INT_MAX || ft_atoi_advanced(str) < INT_MIN)
-	{
 		return (0);
-	}
 	while (str[i])
 	{
 		if (str[i] == '-' || str[i] == '+')
@@ -164,7 +162,7 @@ int	check_numstr_repetition(char **argv)
 				return (0);
 			}
 			if((argv[index[0]][j] == '+' || argv[index[0]][j] == '-'))
-			
+			{
 				j++;
 				while(argv[index[0]][j] != ' ' && argv[index[0]][j])
 				{
@@ -177,9 +175,7 @@ int	check_numstr_repetition(char **argv)
 				}
 			}
 			else
-			{
 				j++;
-			}
 		}
 		ptr=ft_split(argv[index[0]], ' ');
 		j = 0;
@@ -216,6 +212,7 @@ int	check_numstr_repetition(char **argv)
 			k++;
 		}
 	}
+	
 	return (1);
 }
 
@@ -240,31 +237,31 @@ int	ft_check_input_validity(char **argv)
 	return (1);
 }
 
-int	main(int argc, char **argv)
-{
-	//int		i;
-	//int		j;
-	// char	*str;
+// int	main(int argc, char **argv)
+// {
+// 	//int		i;
+// 	//int		j;
+// 	// char	*str;
 
-	//i = 1;
-	//j = 0;
-	if (argc == 1)
-		return (0);
-	printf("true\n");
-	if (!ft_check_input_validity(argv))
-	{
-		ft_printf("error");
-		ft_printf("\n");
-		return (0);
-	}
-	printf("true\n");
-	// str = ft_extract_str_numbers(argc, argv);
-	// j = search_strategy_existance(argv);
-	// if (j == 0 || ft_strcmp(str,"adaptive") == 0)
-	// 	ft_adaptive_process(str);
-	// else
-	// 	ft_Other_process(str);
-	// if(search_bench_existance(argv))
-	// 	ft_bench_process();
-	return (0);
-}
+// 	//i = 1;
+// 	//j = 0;
+// 	if (argc == 1)
+// 		return (0);
+// 	printf("true\n");
+// 	if (!ft_check_input_validity(argv))
+// 	{
+// 		ft_printf("error");
+// 		ft_printf("\n");
+// 		return (0);
+// 	}
+// 	printf("true\n");
+// 	// str = ft_extract_str_numbers(argc, argv);
+// 	// j = search_strategy_existance(argv);
+// 	// if (j == 0 || ft_strcmp(str,"adaptive") == 0)
+// 	// 	ft_adaptive_process(str);
+// 	// else
+// 	// 	ft_Other_process(str);
+// 	// if(search_bench_existance(argv))
+// 	// 	ft_bench_process();
+// 	return (0);
+// }
