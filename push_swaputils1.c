@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   push_swaputils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzahredd <nzahredd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 12:48:42 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/18 15:34:09 by nzahredd         ###   ########.fr       */
+/*   Updated: 2025/12/19 11:52:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
-
-int	ft_isdigitt(int c)
-{
-	if (c < '0' || c > '9')
-		return (0);
-	else
-	{
-		return (1);
-	}
-}
 
 float	ft_compute_disorder(int *a, int len)
 {
@@ -50,7 +40,7 @@ float	ft_compute_disorder(int *a, int len)
 	return ((float)mistakes / total_pairs);
 }
 
-static int	check_valid_pointer(const char *nptr, int *i, int *number2)
+static int	check_valid_pointer(char *nptr, int *i, int *number2)
 {
 	if ((nptr[*i] == '+' || nptr[*i] == '-')
 		&& (nptr[*i + 1] != '+' && nptr[*i + 1] != '-'
@@ -68,7 +58,7 @@ static int	check_valid_pointer(const char *nptr, int *i, int *number2)
 }
 //for ft_atoi
 
-int	ft_atoi(const char *nptr)
+int	ft_atoi(char *nptr)
 {
 	int		i;
 	int		number1;

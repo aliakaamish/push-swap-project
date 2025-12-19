@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push-swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nzahredd <nzahredd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 08:23:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/18 16:54:15 by nzahredd         ###   ########.fr       */
+/*   Updated: 2025/12/19 13:17:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_strcmp(char *s1, char *s2)
 	return (s1[i] - s2[i]);
 }
 
-int	check_duplicate(char *str)
+int	check_duplicate(char **str)
 {
 	int	i;
 	int	j;
@@ -36,11 +36,10 @@ int	check_duplicate(char *str)
 	i = 0;
 	while (str[i])
 	{
-		printf("true");
 		j = i + 1;
 		while (str[j])
 		{
-			if (str[i] == str[j])
+			if (!ft_strcmp(str[i], str[j]))
 			{
 				return (0);
 			}
@@ -51,6 +50,16 @@ int	check_duplicate(char *str)
 	return (1);
 }
 
+int	ft_isdigitt(int c)
+{
+	if ((c < '0' || c > '9') && c != ' ')
+		return (0);
+	else
+	{
+		return (1);
+	}
+}
+
 int	count_mblocks(char **argv, int **index)
 {
 	int	i;
@@ -58,7 +67,7 @@ int	count_mblocks(char **argv, int **index)
 	int	j;
 	int	k;
 
-	i = 0;
+	i = 1;
 	count = 0;
 	k = 0;
 	while (argv[i])
@@ -66,18 +75,18 @@ int	count_mblocks(char **argv, int **index)
 		j = 0;
 		while (!ft_isdigitt(argv[i][j]))
 			j++;
-		if (j != ft_strlenn(argv[i]))
+		if (j - 1  != ft_strlenn(argv[i]))
 			count++;
 		i++;
 	}
 	*index = malloc(count * sizeof(int));
-	i = 0;
+	i = 1;
 	while (argv[i])
 	{
 		j = 0;
 		while (!ft_isdigitt(argv[i][j]))
 			j++;
-		if (j != ft_strlenn(argv[i]))
+		if (j - 1  != ft_strlenn(argv[i]))
 			(*index)[k++] = i;
 		i++;
 	}
@@ -103,69 +112,106 @@ char *ft_strcpy(char *src)
 int	check_numbers_validation(char *str)
 {
 	int		i;
-	char	*int_max;
-	char	*int_min;
 
 	i = 0;
-	int_max = ft_strcpy("2147483647");
-	int_min = ft_strcpy("-2147483648");
-	if (!check_duplicate(str))
+	if(ft_atoi_advanced(str) > INT_MAX || ft_atoi_advanced(str) < INT_MIN)
 	{
 		return (0);
-		printf("true");
 	}
-	if (ft_strcmp(int_max, str) < 0)
-		return (0);
-	if (ft_strcmp(int_min, str) > 0)
-		return (0);
-	while (str[i++])
+	while (str[i])
 	{
-		if (ft_isdigitt(str[i]))
+		if (str[i] == '-' || str[i] == '+')
 		{
-			if (str[i] == '-' || str[i] == '+')
+			i++;
+			if (!ft_isdigitt(str[i]))
 			{
-				i++;
-				if (!ft_isdigitt(str[i]))
-					return (0);
+				printf("here\n");
+				return (0);
 			}
-			return (0);
 		}
+		i++;
 	}
 	return (1);
 }
 
 int	check_numstr_repetition(char **argv)
 {
-	int	i;
+	int	j;
 	int	*index;
+	char **ptr;
 	int	k;
 
-	i = 0;
+	j = 0;
 	k = 0;
 	if (count_mblocks(argv, &index) == 1)
 	{
-		if (!ft_isdigitt(argv[index[0]][0])
-			|| !ft_isdigitt(argv[index[0]][ft_strlenn(argv[index[0]]) - 1]) || !check_numbers_validation(argv[index[0]]))
+		printf("in count==1\n");
+		if (!(argv[index[0]][0] - ' ')
+			|| !ft_strcmp(&argv[index[0]][ft_strlenn(argv[index[0]]) - 1], " "))
 			return (0);
-		while (argv[index[0]][i])
+		while (argv[index[0]][j])
 		{
-			if (!ft_isdigitt(argv[index[0]][i]) && argv[index[0]][i] != ' ')
+			if (!ft_isdigitt(argv[index[0]][j])
+				&& argv[index[0]][j] != '+' && argv[index[0]][j] != '-' )
+			{
+				printf("here\n");
 				return (0);
-			i++;
+			}
+			if(argv[index[0]][j] == ' ' && !ft_isdigit(argv[index[0]][j + 1])
+				&& argv[index[0]][j + 1] != '+' && argv[index[0]][j + 1] != '-')
+			{
+				printf("here\n");
+				return (0);
+			}
+			if((argv[index[0]][j] == '+' || argv[index[0]][j] == '-'))
+			
+				j++;
+				while(argv[index[0]][j] != ' ' && argv[index[0]][j])
+				{
+					if(!ft_isdigit(argv[index[0]][j]))
+					{
+						printf("incheck\n");
+						return (0);
+					}
+					j++;
+				}
+			}
+			else
+			{
+				j++;
+			}
+		}
+		ptr=ft_split(argv[index[0]], ' ');
+		j = 0;
+		printf("before split\n");
+		if(!check_duplicate(ptr))
+		{
+			printf("duplicate\n");
+			return (0);
+		}
+		while(ptr[j])
+		{
+			if(!check_numbers_validation(ptr[j]))
+			{
+				printf("split\n");
+				return (0);
+			}
+			j++;
 		}
 	}
 	else
 	{
+		printf("in count>1\n");
 		while (k < count_mblocks(argv, &index))
 		{
 			if (!ft_isdigitt(argv[index[k]][0])
 			|| !ft_isdigitt(argv[index[k]][ft_strlenn(argv[index[k]]) - 1]))
 				return (0);
-			while (argv[index[k]][i])
+			while (argv[index[k]][j])
 			{
-				if (!ft_isdigitt(argv[index[k]][i]) && argv[index[k]][i] != ' ')
+				if (!ft_isdigitt(argv[index[k]][j]) && argv[index[k]][j] != ' ')
 					return (0);
-				i++;
+				j++;
 			}
 			k++;
 		}
@@ -176,10 +222,8 @@ int	check_numstr_repetition(char **argv)
 int	ft_check_input_validity(char **argv)
 {
 	int	i;
-	int	j;
 
 	i = 1;
-	j = 0;
 	while (argv[i])
 	{
 
@@ -187,7 +231,7 @@ int	ft_check_input_validity(char **argv)
 			&& ft_strcmp(argv[i], "--medium")
 			&& ft_strcmp(argv[i], "--complex")
 			&& ft_strcmp(argv[i], "--bench")
-			&& !check_numstr_repetition(&argv[i]))
+			&& !check_numstr_repetition(argv))
 		{
 			return (0);
 		}
@@ -198,21 +242,22 @@ int	ft_check_input_validity(char **argv)
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	int		j;
+	//int		i;
+	//int		j;
 	// char	*str;
 
-	i = 1;
-	j = 0;
+	//i = 1;
+	//j = 0;
 	if (argc == 1)
 		return (0);
 	printf("true\n");
 	if (!ft_check_input_validity(argv))
 	{
 		ft_printf("error");
+		ft_printf("\n");
 		return (0);
 	}
-	printf("true");
+	printf("true\n");
 	// str = ft_extract_str_numbers(argc, argv);
 	// j = search_strategy_existance(argv);
 	// if (j == 0 || ft_strcmp(str,"adaptive") == 0)

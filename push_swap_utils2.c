@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakaamis <aakaamis@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 08:34:36 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/18 08:52:19 by aakaamis         ###   ########.fr       */
+/*   Updated: 2025/12/19 11:25:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	number_of_words(char const *s, char c)
+static int	number_of_words(char *s, char c)
 {
 	int	i;
 	int	count;
@@ -34,12 +34,12 @@ static int	number_of_words(char const *s, char c)
 	return (count);
 }
 
-static int	check_char_matching(const char *s, char c, int i)
+static int	check_char_matching(char *s, char c, int i)
 {
 	return (s[i] == c);
 }
 
-static int	length_of_word(const char *s, char c, int i)
+static int	length_of_word(char *s, char c, int i)
 {
 	int	count;
 
@@ -49,7 +49,7 @@ static int	length_of_word(const char *s, char c, int i)
 	return (count);
 }
 
-static void	fill_word(char **ptr, const char *s, char c, int *i)
+static void	fill_word(char **ptr, char *s, char c, int *i)
 {
 	int	j;
 	int	length;
@@ -62,7 +62,7 @@ static void	fill_word(char **ptr, const char *s, char c, int *i)
 	ptr[0][j] = '\0';
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**ptr;
 	int		i;
