@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 08:23:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/19 13:17:08 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/20 10:33:27 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,31 @@
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
+	int j;
 
 	i = 0;
-	while (s1[i] && s2[i])
+	j = 0;
+	while (s1[i] && s2[j])
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
+		if (s1[i] != s2[j])
+		{
+			if(s1[i] == '+' && ft_isdigit(s2[j]))
+			{
+				i++;
+				continue;
+			}	
+			else if(s2[j] == '+' && ft_isdigit(s1[i]))
+			{
+				j++;
+				continue;
+			}
+			else
+			{
+				return (s1[i] - s2[i]);
+			}
+		}
 		i++;
+		j++;
 	}
 	return (s1[i] - s2[i]);
 }
@@ -70,15 +88,26 @@ int	count_mblocks(char **argv, int **index)
 	i = 1;
 	count = 0;
 	k = 0;
-	while (argv[i])
+	j = 0;
+	while(argv[i] && argv[i][j])
 	{
-		j = 0;
-		while (!ft_isdigitt(argv[i][j]))
-			j++;
-		if (j - 1  != ft_strlenn(argv[i]))
+		if(ft_isdigitt(argv[i][j]))
+		{
 			count++;
-		i++;
+			i++;
+			j = 0;
+		}
+		else
+		{
+			j++;
+			if(!argv[i][j])
+			{
+				j = 0;
+				i++;
+			}
+		}
 	}
+	printf("%d\n",count);
 	*index = malloc(count * sizeof(int));
 	i = 1;
 	while (argv[i])
@@ -115,7 +144,9 @@ int	check_numbers_validation(char *str)
 
 	i = 0;
 	if(ft_atoi_advanced(str) > INT_MAX || ft_atoi_advanced(str) < INT_MIN)
+	{
 		return (0);
+	}
 	while (str[i])
 	{
 		if (str[i] == '-' || str[i] == '+')
@@ -132,41 +163,96 @@ int	check_numbers_validation(char *str)
 	return (1);
 }
 
+char	**ft_extract_numbers(char **argv,int *index,int count)
+{
+	int i;
+	char **ptr;
+	int j;
+
+	i = 0;
+	ptr = malloc((count + 1) * sizeof(char*));
+	while(i < count)
+	{
+		j = 0;
+		ptr[i] = malloc((ft_strlenn(argv[index[i]]) + 1) * sizeof(char));
+		while(argv[index[i]][j])
+		{
+			ptr[i][j] = argv[index[i]][j];
+			j++;
+		}
+		ptr[i][j] = '\0';
+		i++;
+	}
+	ptr[i] = NULL;
+	return (ptr);
+}
+
+void print_two_D_array(char **ptr)
+{
+	int i;
+
+	i = 0;
+	while(ptr[i])
+	{
+		printf("%s\n",ptr[i++]);
+	}
+}
+
 int	check_numstr_repetition(char **argv)
 {
 	int	j;
 	int	*index;
 	char **ptr;
+	int	count;
 	int	k;
 
 	j = 0;
 	k = 0;
-	if (count_mblocks(argv, &index) == 1)
+	count = count_mblocks(argv, &index);
+	printf("count=%d\n",count);
+	if(count == 1)
 	{
-		printf("in count==1\n");
-		if (!(argv[index[0]][0] - ' ')
-			|| !ft_strcmp(&argv[index[0]][ft_strlenn(argv[index[0]]) - 1], " "))
+		if (!(argv[index[k]][0] - ' ')
+			|| !ft_strcmp(&argv[index[k]][ft_strlenn(argv[index[k]]) - 1], " "))
 			return (0);
-		while (argv[index[0]][j])
+		ptr=ft_split(argv[index[k]], ' ');
+	}
+	else
+	{
+		ptr=ft_extract_numbers(argv,index,count);
+	}
+	if(!ft_input_type(argv) || !check_duplicate(ptr))
+	{
+		free (index);
+		free (ptr);
+		return (0);
+	}
+	print_two_D_array(ptr);
+	printf("count=%d",count);
+	while (k < count)
+	{
+		j = 0;
+		printf("in k = %d\n",k);
+		while (ptr[k][j])
 		{
-			if (!ft_isdigitt(argv[index[0]][j])
-				&& argv[index[0]][j] != '+' && argv[index[0]][j] != '-' )
+			if (!ft_isdigitt(ptr[k][j])
+				&& ptr[k][j] != '+' && ptr[k][j] != '-' )
 			{
 				printf("here\n");
 				return (0);
 			}
-			if(argv[index[0]][j] == ' ' && !ft_isdigit(argv[index[0]][j + 1])
-				&& argv[index[0]][j + 1] != '+' && argv[index[0]][j + 1] != '-')
+			if(ptr[k][j] == ' ' && !ft_isdigit(ptr[k][j + 1])
+				&& ptr[k][j + 1] != '+' && ptr[k][j + 1] != '-')
 			{
 				printf("here\n");
 				return (0);
 			}
-			if((argv[index[0]][j] == '+' || argv[index[0]][j] == '-'))
+			if((ptr[k][j] == '+' || ptr[k][j] == '-'))
 			{
 				j++;
-				while(argv[index[0]][j] != ' ' && argv[index[0]][j])
+				while(ptr[k][j] != ' ' && ptr[k][j])
 				{
-					if(!ft_isdigit(argv[index[0]][j]))
+					if(!ft_isdigit(ptr[k][j]))
 					{
 						printf("incheck\n");
 						return (0);
@@ -175,16 +261,12 @@ int	check_numstr_repetition(char **argv)
 				}
 			}
 			else
+			{
 				j++;
+			}
 		}
-		ptr=ft_split(argv[index[0]], ' ');
 		j = 0;
 		printf("before split\n");
-		if(!check_duplicate(ptr))
-		{
-			printf("duplicate\n");
-			return (0);
-		}
 		while(ptr[j])
 		{
 			if(!check_numbers_validation(ptr[j]))
@@ -194,25 +276,32 @@ int	check_numstr_repetition(char **argv)
 			}
 			j++;
 		}
+		k++;
 	}
-	else
+	return (1);
+}
+
+int check_strategies(char *argv)
+{
+	int i;
+	int  count_digits;
+
+	i = 0;
+	count_digits = 0;
+	if(ft_strcmp(argv, "--adaptive") && ft_strcmp(argv, "--simple")
+			&& ft_strcmp(argv, "--medium")
+			&& ft_strcmp(argv, "--complex")
+			&& ft_strcmp(argv, "--bench"))
 	{
-		printf("in count>1\n");
-		while (k < count_mblocks(argv, &index))
+		while(argv[i])
 		{
-			if (!ft_isdigitt(argv[index[k]][0])
-			|| !ft_isdigitt(argv[index[k]][ft_strlenn(argv[index[k]]) - 1]))
-				return (0);
-			while (argv[index[k]][j])
-			{
-				if (!ft_isdigitt(argv[index[k]][j]) && argv[index[k]][j] != ' ')
-					return (0);
-				j++;
-			}
-			k++;
+			if(ft_isdigit(argv[i]))
+				count_digits++;
+			i++;
 		}
+		if(count_digits == 0)
+			return (0);
 	}
-	
 	return (1);
 }
 
@@ -223,45 +312,41 @@ int	ft_check_input_validity(char **argv)
 	i = 1;
 	while (argv[i])
 	{
-
-		if (ft_strcmp(argv[i], "--adaptive") && ft_strcmp(argv[i], "--simple")
-			&& ft_strcmp(argv[i], "--medium")
-			&& ft_strcmp(argv[i], "--complex")
-			&& ft_strcmp(argv[i], "--bench")
-			&& !check_numstr_repetition(argv))
+		if (!check_strategies(argv[i]))
 		{
-			return (0);
+			return(0);
 		}
+		if(!check_numstr_repetition(argv))
+			return(0);
 		i++;
 	}
 	return (1);
 }
 
-// int	main(int argc, char **argv)
-// {
-// 	//int		i;
-// 	//int		j;
-// 	// char	*str;
+int	main(int argc, char **argv)
+{
+	//int		i;
+	//int		j;
+	// char	*str;
 
-// 	//i = 1;
-// 	//j = 0;
-// 	if (argc == 1)
-// 		return (0);
-// 	printf("true\n");
-// 	if (!ft_check_input_validity(argv))
-// 	{
-// 		ft_printf("error");
-// 		ft_printf("\n");
-// 		return (0);
-// 	}
-// 	printf("true\n");
-// 	// str = ft_extract_str_numbers(argc, argv);
-// 	// j = search_strategy_existance(argv);
-// 	// if (j == 0 || ft_strcmp(str,"adaptive") == 0)
-// 	// 	ft_adaptive_process(str);
-// 	// else
-// 	// 	ft_Other_process(str);
-// 	// if(search_bench_existance(argv))
-// 	// 	ft_bench_process();
-// 	return (0);
-// }
+	//i = 1;
+	//j = 0;
+	if (argc == 1)
+		return (0);
+	if (!ft_check_input_validity(argv))
+	{
+		ft_printf("error");
+		ft_printf("\n");
+		return (0);
+	}
+	printf("true\n");
+	// str = ft_extract_str_numbers(argc, argv);
+	// j = search_strategy_existance(argv);
+	// if (j == 0 || ft_strcmp(str,"adaptive") == 0)
+	// 	ft_adaptive_process(str);
+	// else
+	// 	ft_Other_process(str);
+	// if(search_bench_existance(argv))
+	// 	ft_bench_process();
+	return (0);
+}

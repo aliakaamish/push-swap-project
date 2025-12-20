@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/19 21:17:11 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/19 21:17:11 by marvin           ###   ########.fr       */
+/*   Created: 2025/12/20 10:45:24 by marvin            #+#    #+#             */
+/*   Updated: 2025/12/20 10:45:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "printff/ft_printf.h"
 #include "push_swap.h"
 
-char	*ft_strdup(char *s)
+/*char	*ft_strdup(char *s)
 {
 	char	*copy;
 	size_t	len;
@@ -179,3 +179,4 @@ int main(int argc, char **argv)
     ft_printf("All numbers are valid and no duplicates found.\n");
     return 0;
 }
+*/
