@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 08:23:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/20 10:33:27 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/21 11:04:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,10 @@ int	count_mblocks(char **argv, int **index)
 	while (argv[i])
 	{
 		j = 0;
-		while (!ft_isdigitt(argv[i][j]))
+		while (!ft_isdigitt(argv[i][j]) && argv[i][j])
 			j++;
-		if (j - 1  != ft_strlenn(argv[i]))
+		printf("j=%d\n",j);
+		if (argv[i][j] != '\0')
 			(*index)[k++] = i;
 		i++;
 	}
@@ -210,41 +211,52 @@ int	check_numstr_repetition(char **argv)
 	k = 0;
 	count = count_mblocks(argv, &index);
 	printf("count=%d\n",count);
+	printf("index=%d\n",index[1]);
+	printf("argv=%s\n",argv[index[1]]);
 	if(count == 1)
 	{
-		if (!(argv[index[k]][0] - ' ')
-			|| !ft_strcmp(&argv[index[k]][ft_strlenn(argv[index[k]]) - 1], " "))
-			return (0);
-		ptr=ft_split(argv[index[k]], ' ');
+		ptr=ft_split(argv[index[k] ], ' ');
 	}
 	else
 	{
 		ptr=ft_extract_numbers(argv,index,count);
 	}
+	printf("printing here:");
+	print_two_D_array(ptr);
 	if(!ft_input_type(argv) || !check_duplicate(ptr))
 	{
 		free (index);
 		free (ptr);
 		return (0);
 	}
-	print_two_D_array(ptr);
+	while(ptr[j])
+	{
+		if(!check_numbers_validation(ptr[j]))
+		{
+			printf("split\n");
+			return (0);
+		}
+		j++;
+	}
+	j = 0;
 	printf("count=%d",count);
-	while (k < count)
+	while (ptr[k])
 	{
 		j = 0;
 		printf("in k = %d\n",k);
 		while (ptr[k][j])
 		{
+			printf("k ==== %d\n",k);
 			if (!ft_isdigitt(ptr[k][j])
 				&& ptr[k][j] != '+' && ptr[k][j] != '-' )
 			{
-				printf("here\n");
+				printf("here I am\n");
 				return (0);
 			}
-			if(ptr[k][j] == ' ' && !ft_isdigit(ptr[k][j + 1])
+			if(ptr[k][j] == ' ' && !ft_isdigitt(ptr[k][j + 1])
 				&& ptr[k][j + 1] != '+' && ptr[k][j + 1] != '-')
 			{
-				printf("here\n");
+				printf("here I am\n");
 				return (0);
 			}
 			if((ptr[k][j] == '+' || ptr[k][j] == '-'))
@@ -266,16 +278,6 @@ int	check_numstr_repetition(char **argv)
 			}
 		}
 		j = 0;
-		printf("before split\n");
-		while(ptr[j])
-		{
-			if(!check_numbers_validation(ptr[j]))
-			{
-				printf("split\n");
-				return (0);
-			}
-			j++;
-		}
 		k++;
 	}
 	return (1);

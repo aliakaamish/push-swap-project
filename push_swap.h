@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 08:49:05 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/19 22:14:34 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/21 10:53:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_bench_process(void);
 int		search_bench_existance(char **argv);
 char 	*ft_extract_str_numbers(int argc, char **argv);
 int		ft_input_type(char **argv);
-char	**ft_extract_numbers(char **argv,int *index, int count);
+char	**ft_extract_numbers(char **argv,int *index, int count); 
 
 # include <limits.h>
 
