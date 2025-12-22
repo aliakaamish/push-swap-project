@@ -13,6 +13,55 @@
 #include <stdio.h>
 #include "push_swap.h"
 
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (s1[++i] && s2[++j]) //increments to zero than start the loop
+	{
+		if (s1[i] != s2[j])
+		{
+			if(s1[i] == '+' && ft_isdigit(s2[j]))
+			{
+				i++;
+				continue;
+			}	
+			else if(s2[j] == '+' && ft_isdigit(s1[i]))
+			{
+				j++;
+				continue;
+			}
+			else
+				return (s1[i] - s2[i]);
+		}
+	}
+	return (s1[i] - s2[i]);
+}
+int	check_duplicate(char **str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		j = i + 1;
+		while (str[j])
+		{
+			if (!ft_strcmp(str[i], str[j]))
+			{
+				return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
 float	ft_compute_disorder(int *a, int len)
 {
 	int	mistakes;
@@ -56,8 +105,6 @@ static int	check_valid_pointer(char *nptr, int *i, int *number2)
 		return (0);
 	}
 }
-//for ft_atoi
-
 int	ft_atoi(char *nptr)
 {
 	int		i;
@@ -78,7 +125,5 @@ int	ft_atoi(char *nptr)
 		return (number1);
 	}
 	else
-	{
 		return (0);
-	}
 }

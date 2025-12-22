@@ -42,7 +42,7 @@ int		search_bench_existance(char **argv);
 char 	*ft_extract_str_numbers(int argc, char **argv);
 int		ft_input_type(char **argv);
 char	**ft_extract_numbers(char **argv,int *index, int count); 
-
+void print_two_D_array(char **ptr);
 # include <limits.h>
 
 #endif

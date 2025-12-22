@@ -84,4 +84,3 @@ char	**ft_split(char *s, char c)
 	}
 	return (ptr);
 }
-//split the string then use ft_atoi

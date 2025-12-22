@@ -14,56 +14,68 @@
 #include "push_swap.h"
 #include "printff/ft_printf.h"
 
-int ft_strchr(char *s, int c)
+int	ft_strchr(char *s, int c)
 {
-    int count_spaces;
+	int	count_spaces;
 
-    count_spaces = 0;
-    while (*s)
-    {
-        if (*s == (char)c)
-            count_spaces++;
-        s++;
-    }
-        return (count_spaces);
+	count_spaces = 0;
+	while (*s)
+	{
+		if (*s == (char)c)
+			count_spaces++;
+		s++;
+	}
+		return (count_spaces);
 }
 
-int ft_input_type(char **argv)
+static int	ft_is_strategy_flag(char *arg)
 {
-    int i = 1;
-    int count_strategy = 0;
-    int count_bench = 0;
-    int count_numbers = 0;
-    int has_space = 0;
+	return (!ft_strcmp(arg, "--simple")
+		|| !ft_strcmp(arg, "--complex")
+		|| !ft_strcmp(arg, "--medium")
+		|| !ft_strcmp(arg, "--adaptive"));
+}
 
-    while (argv[i])
-    {
-        if (!ft_strcmp(argv[i], "--simple")
-            || !ft_strcmp(argv[i], "--complex")
-            || !ft_strcmp(argv[i], "--medium")
-            || !ft_strcmp(argv[i], "--adaptive"))
-            count_strategy++;
+static int	ft_is_number_arg(char *arg)
+{
+	return (ft_isdigit(arg[0]) || arg[0] == '-' || arg[0] == '+');
+}
 
-        else if (!ft_strcmp(argv[i], "--bench"))
-            count_bench++;
+static void	ft_count_args(char **argv, int *counts)
+{
+	int	i;
 
-        else if (ft_isdigit(argv[i][0]) || argv[i][0] == '-' || argv[i][0] == '+')
-        {
-            count_numbers++;
-            if (ft_strchr(argv[i], ' '))
-                has_space++;
-        }
-        i++;
-    }
+	i = 1;
+	while (argv[i])
+	{
+		if (ft_is_strategy_flag(argv[i]))
+			counts[0]++;
+		else if (!ft_strcmp(argv[i], "--bench"))
+			counts[1]++;
+		else if (ft_is_number_arg(argv[i]))
+		{
+			counts[2]++;
+			if (ft_strchr(argv[i], ' '))
+				counts[3]++;
+		}
+		i++;
+	}
+}
 
-    printf("has_space=%d\n",has_space);
-    // ❌ more than one flag
-    if (count_strategy > 1 || count_bench > 1)
-        return (0);
+int	ft_input_type(char **argv)
+{
+	int	counts[4];
 
-    printf("count_numbers=%d\n",count_numbers);
-    // ❌ mixed input
-    if (has_space >= 1 && count_numbers > 1)
-        return (0);
-    return (1);
+	counts[0] = 0; // count_strategy
+	counts[1] = 0; // count_bench
+	counts[2] = 0; // count_numbers
+	counts[3] = 0; // has_space
+
+	ft_count_args(argv, counts);
+
+	if (counts[0] > 1 || counts[1] > 1)
+		return (0);
+	if (counts[3] >= 1 && counts[2] > 1)
+		return (0);
+	return (1);
 }
