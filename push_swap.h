@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 08:49:05 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/23 09:06:49 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 21:05:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ char		*ft_extract_str_numbers(int argc, char **argv);
 int			ft_input_type(char **argv);
 char		**ft_extract_numbers(char **argv, int *index, int count);
 void		print_two_D_array(char **ptr);
+void		check_minus_signs(char **s1, char **s2);
 
 #endif

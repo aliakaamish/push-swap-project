@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 08:23:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/23 09:02:19 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 21:07:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ft_check_input_validity(char **argv)
 	return (1);
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	//int		i;
 	//int		j;
@@ -138,4 +138,4 @@ int	main(int argc, char **argv)
 	// if(search_bench_existance(argv))
 	// 	ft_bench_process();
 	return (0);
-}
+}*/

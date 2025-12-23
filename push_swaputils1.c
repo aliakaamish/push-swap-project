@@ -6,31 +6,17 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 12:48:42 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/23 08:55:08 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 21:04:41 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
 
-void check_minus_signs(char **s1, char **s2)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if((*s1)[i] == '-' && (*s2)[j] == '-')
-	{
-		(*s1)++;
-		(*s2)++;
-	}
-}
-
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -43,7 +29,7 @@ int	ft_strcmp(char *s1, char *s2)
 		{
 			if (s1[i] == '+' && ft_isdigitt(s2[j]))
 				i++;
-			else if(s2[j] == '+' && ft_isdigitt(s1[i]))
+			else if (s2[j] == '+' && ft_isdigitt(s1[i]))
 				j++;
 			else
 				return (s1[i] - s2[j]);
@@ -119,6 +105,7 @@ static int	check_valid_pointer(char *nptr, int *i, int *number2)
 		return (0);
 	}
 }
+
 int	ft_atoi(char *nptr)
 {
 	int		i;

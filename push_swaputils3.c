@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 22:16:37 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/22 22:16:37 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 21:07:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_isdigitt(int c)
 	else
 		return (1);
 }
+
 char	*ft_strcpy(char *src)
 {
 	int		i;
@@ -28,7 +29,7 @@ char	*ft_strcpy(char *src)
 
 	i = 0;
 	dst = malloc(ft_strlenn(src) + 1);
-	while(src[i])
+	while (src[i])
 	{
 		dst[i] = src[i];
 		i++;
@@ -36,12 +37,13 @@ char	*ft_strcpy(char *src)
 	dst[i] = '\0';
 	return (dst);
 }
+
 int	check_numbers_validation(char *str)
 {
 	int		i;
 
 	i = 0;
-	if(ft_atoi_advanced(str) > INT_MAX || ft_atoi_advanced(str) < INT_MIN)
+	if (ft_atoi_advanced(str) > INT_MAX || ft_atoi_advanced(str) < INT_MIN)
 	{
 		return (0);
 	}
@@ -58,14 +60,14 @@ int	check_numbers_validation(char *str)
 	return (1);
 }
 
-char	**ft_extract_numbers(char **argv,int *index,int count)
+char	**ft_extract_numbers(char **argv, int *index, int count)
 {
 	int		i;
 	char	**ptr;
 	int		j;
 
 	i = 0;
-	ptr = malloc((count + 1) * sizeof(char*));
+	ptr = malloc((count + 1) * sizeof(char *));
 	while (i < count)
 	{
 		j = 0;
@@ -82,11 +84,11 @@ char	**ft_extract_numbers(char **argv,int *index,int count)
 	return (ptr);
 }
 
-void	print_two_D_array(char **ptr)
+void	print_two_d_array(char **ptr)
 {
 	int	i;
 
 	i = 0;
 	while (ptr[i])
-		ft_printf("%s\n",ptr[i++]);
+		ft_printf("%s\n", ptr[i++]);
 }
