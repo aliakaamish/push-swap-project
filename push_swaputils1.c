@@ -6,40 +6,54 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 12:48:42 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/19 11:52:43 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 08:55:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
 
+void check_minus_signs(char **s1, char **s2)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if((*s1)[i] == '-' && (*s2)[j] == '-')
+	{
+		(*s1)++;
+		(*s2)++;
+	}
+}
+
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
-	int	j;
+	int j;
 
-	i = -1;
-	j = -1;
-	while (s1[++i] && s2[++j]) //increments to zero than start the loop
+	i = 0;
+	j = 0;
+	check_minus_signs(&s1, &s2);
+	while (s1[i] && s2[j])
 	{
-		if (s1[i] != s2[j])
+		if (s1[i] == s2[j])
+			return (s1[i] - s2[j]);
+		else if (s1[i] != s2[j])
 		{
-			if(s1[i] == '+' && ft_isdigit(s2[j]))
-			{
+			if (s1[i] == '+' && ft_isdigitt(s2[j]))
 				i++;
-				continue;
-			}	
-			else if(s2[j] == '+' && ft_isdigit(s1[i]))
-			{
+			else if(s2[j] == '+' && ft_isdigitt(s1[i]))
 				j++;
-				continue;
-			}
 			else
-				return (s1[i] - s2[i]);
+				return (s1[i] - s2[j]);
 		}
+		else
+			return (s1[i] - s2[j]);
 	}
-	return (s1[i] - s2[i]);
+	return (1);
 }
+
 int	check_duplicate(char **str)
 {
 	int	i;

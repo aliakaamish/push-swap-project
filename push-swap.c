@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 08:23:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/21 11:06:48 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 09:02:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	count_mblockshelper(char **argv, int i)
 
 	count = 0;
 	j = 0;
-	while(argv[i] && argv[i][j])
+	while (argv[i] && argv[i][j])
 	{
-		if(ft_isdigitt(argv[i][j]))
+		if (ft_isdigitt(argv[i][j]))
 		{
 			count++;
 			i++;
@@ -32,7 +32,7 @@ int	count_mblockshelper(char **argv, int i)
 		else
 		{
 			j++;
-			if(!argv[i][j])
+			if (!argv[i][j])
 			{
 				j = 0;
 				i++;
@@ -41,6 +41,7 @@ int	count_mblockshelper(char **argv, int i)
 	}
 	return (count);
 }
+
 int	count_mblocks(char **argv, int **index)
 {
 	int	i;
@@ -71,15 +72,15 @@ int	count_mblocks(char **argv, int **index)
 
 int	check_strategies(char *argv)
 {
-	int i;
-	int  count_digits;
+	int	i;
+	int	count_digits;
 
 	i = 0;
 	count_digits = 0;
 	if (ft_strcmp(argv, "--adaptive") && ft_strcmp(argv, "--simple")
-			&& ft_strcmp(argv, "--medium")
-			&& ft_strcmp(argv, "--complex")
-			&& ft_strcmp(argv, "--bench"))
+		&& ft_strcmp(argv, "--medium")
+		&& ft_strcmp(argv, "--complex")
+		&& ft_strcmp(argv, "--bench"))
 	{
 		while (argv[i])
 		{
@@ -102,10 +103,10 @@ int	ft_check_input_validity(char **argv)
 	{
 		if (!check_strategies(argv[i]))
 		{
-			return(0);
+			return (0);
 		}
 		if (!check_numstr_repetition(argv))
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);

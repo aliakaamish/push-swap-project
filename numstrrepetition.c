@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 21:41:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/22 21:41:41 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/23 09:00:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	numstrisdigithelper(char **ptr, int k, int j)
 		return (0);
 	return (1);
 }
+
 int	check_numstr_repetition_helper(char **ptr, int k, int j)
 {
 	while (ptr[++k])
@@ -40,7 +41,7 @@ int	check_numstr_repetition_helper(char **ptr, int k, int j)
 				while (ptr[k][j] != ' ' && ptr[k][j])
 				{
 					if (!ft_isdigit(ptr[k][j]))
-					return (0);
+						return (0);
 					j++;
 				}
 			}
@@ -54,7 +55,7 @@ int	check_numstr_repetition_helper(char **ptr, int k, int j)
 int	checknumstrhelper2(char **argv, int **index, char ***ptr, int *count)
 {
 	*count = count_mblocks(argv, index);
-	if(*count == 1)
+	if (*count == 1)
 		*ptr = ft_split(argv[(*index)[0]], ' ');
 	else
 		*ptr = ft_extract_numbers(argv, *index, *count);
@@ -66,6 +67,7 @@ int	checknumstrhelper2(char **argv, int **index, char ***ptr, int *count)
 	}
 	return (1);
 }
+
 int	validate_numbers(char **ptr, int k)
 {
 	int	j;
@@ -80,18 +82,22 @@ int	validate_numbers(char **ptr, int k)
 	if (!check_numstr_repetition_helper(ptr, k, j))
 		return (0);
 	return (1);
-
 }
+
 int	check_numstr_repetition(char **argv)
 {
-	int	*index;
-	char **ptr;
-	int	count;
-	int	k;
+	int		*index;
+	char	**ptr;
+	int		count;
+	int		k;
 
 	k = -1;
+	printf("helper is fine\n");
 	if (!checknumstrhelper2(argv, &index, &ptr, &count))
+	{
+		printf("here");
 		return (0);
+	}
 	print_two_D_array(ptr);
 	if (!validate_numbers(ptr, k))
 	{

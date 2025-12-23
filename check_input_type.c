@@ -25,7 +25,7 @@ int	ft_strchr(char *s, int c)
 			count_spaces++;
 		s++;
 	}
-		return (count_spaces);
+	return (count_spaces);
 }
 
 static int	ft_is_strategy_flag(char *arg)
@@ -66,16 +66,19 @@ int	ft_input_type(char **argv)
 {
 	int	counts[4];
 
-	counts[0] = 0; // count_strategy
-	counts[1] = 0; // count_bench
-	counts[2] = 0; // count_numbers
-	counts[3] = 0; // has_space
-
+	counts[0] = 0;
+	counts[1] = 0;
+	counts[2] = 0;
+	counts[3] = 0;
 	ft_count_args(argv, counts);
-
 	if (counts[0] > 1 || counts[1] > 1)
 		return (0);
 	if (counts[3] >= 1 && counts[2] > 1)
 		return (0);
 	return (1);
 }
+
+//counts[0] = 0;  count_strategy
+	//counts[1] = 0;  count_bench
+	//counts[2] = 0;  count_numbers
+	//counts[3] = 0;  has_space
