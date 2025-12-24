@@ -6,7 +6,7 @@
 /*   By: aakaamis <aakaamis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/17 08:23:54 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/24 11:14:37 by aakaamis         ###   ########.fr       */
+/*   Updated: 2025/12/24 13:19:25 by aakaamis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,120 +14,38 @@
 #include "printff/ft_printf.h"
 #include "push_swap.h"
 
-int	count_mblockshelper(char **argv, int i)
+typedef struct t_node
 {
-	int	count;
-	int	j;
+	int			value;
+	struct node	*next;
+	struct node	*previous;
+}t_node;
 
-	count = 0;
-	j = 0;
-	while (argv[i] && argv[i][j])
-	{
-		if (ft_isdigitt(argv[i][j]))
-		{
-			count++;
-			i++;
-			j = 0;
-		}
-		else
-		{
-			j++;
-			if (!argv[i][j])
-			{
-				j = 0;
-				i++;
-			}
-		}
-	}
-	return (count);
-}
-
-int	count_mblocks(char **argv, int **index)
+t_node ft_list_extract()
+void push_swap(t_node a);
 {
-	int	i;
-	int	count;
-	int	j;
-	int	k;
-
-	i = 1;
-	count = 0;
-	k = 0;
-	j = 0;
-	count = count_mblockshelper(argv, i);
-	*index = malloc(count * sizeof(int));
-	if (!*index)
-		return (0);
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		while (!ft_isdigitt(argv[i][j]) && argv[i][j])
-			j++;
-		if (argv[i][j] != '\0')
-			(*index)[k++] = i;
-		i++;
-	}
-	return (count);
-}
-
-int	check_strategies(char *argv)
-{
-	int	i;
-	int	count_digits;
-
-	i = 0;
-	count_digits = 0;
-	if (ft_strcmp(argv, "--adaptive") && ft_strcmp(argv, "--simple")
-		&& ft_strcmp(argv, "--medium")
-		&& ft_strcmp(argv, "--complex")
-		&& ft_strcmp(argv, "--bench"))
-	{
-		while (argv[i])
-		{
-			if (ft_isdigit(argv[i]))
-				count_digits++;
-			i++;
-		}
-		if (count_digits == 0)
-			return (0);
-	}
-	return (1);
-}
-
-int	ft_check_input_validity(char **argv)
-{
-	int	i;
-
-	i = 1;
-	while (argv[i])
-	{
-		if (!check_strategies(argv[i]))
-		{
-			return (0);
-		}
-		if (!check_numstr_repetition(argv))
-			return (0);
-		i++;
-	}
-	return (1);
+	
 }
 
 int	main(int argc, char **argv)
 {
 	//int		i;
 	//int		j;
-	// char	*str;
+	char	**ptr;
+	t_node a;
 
 	//i = 1;
 	//j = 0;
 	if (argc == 1)
 		return (0);
-	if (!ft_check_input_validity(argv))
+	if (!ft_check_input_validity(argv, ptr))
 	{
 		ft_printf("error");
 		ft_printf("\n");
 		return (0);
 	}
+	a = ft_list_extract(ptr);
+	push_swap(a);
 	printf("true\n");
 	// str = ft_extract_str_numbers(argc, argv);
 	// j = search_strategy_existance(argv);

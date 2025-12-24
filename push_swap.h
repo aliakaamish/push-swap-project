@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakaamis <aakaamis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 08:49:05 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/23 21:05:06 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/24 13:17:13 by aakaamis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ float		ft_compute_disorder(int *a, int len);
 int			ft_strcmp(char *s1, char *s2);
 int			check_duplicate(char **str);
 int			count_mblocks(char **argv, int **index);
-int			check_numstr_repetition(char **argv);
+int			check_numstr_repetition(char **argv, char ***ptr);
 char		*ft_strcpy(char *src);
 int			check_numbers_validation(char *str);
-int			ft_check_input_validity(char **argv);
+int			ft_check_input_validity(char **argv, char **ptr);
 long long	ft_atoi_advanced(char *nptr);
 char		**ft_split(char *s, char c);
 void		ft_O_n_squared(void);
