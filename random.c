@@ -180,3 +180,59 @@ int main(int argc, char **argv)
     return 0;
 }
 */
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+	unsigned short data;
+	struct Node *next;
+}Node;
+
+Node *insert_head(Node *head, int value)
+{
+	Node *new_node = (Node *)malloc(sizeof(Node));
+
+	new_node->data = value;
+	new_node->next = head;
+	return (new_node);
+
+}
+Node *insert_end(Node *head, int value)
+{
+	Node *newnode = (Node *)malloc(sizeof(Node));
+	newnode->data = value;
+	newnode->next = NULL;
+	
+	if (head == NULL)
+		return (newnode);
+	Node *temp = head;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = newnode;
+	return (head);
+}
+
+Node *delete_head(Node *head)
+{
+	if (head == NULL)
+		return NULL;
+	Node *temp = head;
+	head = head->next;
+	free(temp);
+	return (head);
+}
+Node *reverse(Node *head)
+{
+	Node *prev = NULL;
+	Node *current = head;
+	Node *next = NULL;
+
+	while (current != NULL)
+	{
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current = next;
+	}
+	return (prev);
+}
