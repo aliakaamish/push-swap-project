@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   numstrrepetition.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakaamis <aakaamis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 21:41:41 by marvin            #+#    #+#             */
-/*   Updated: 2025/12/23 09:00:55 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/24 11:18:43 by aakaamis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,9 @@ int	check_numstr_repetition(char **argv)
 	printf("helper is fine\n");
 	if (!checknumstrhelper2(argv, &index, &ptr, &count))
 	{
-		printf("here");
+		printf("here cool");
 		return (0);
 	}
-	print_two_D_array(ptr);
 	if (!validate_numbers(ptr, k))
 	{
 		free(index);

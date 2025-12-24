@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swaputils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakaamis <aakaamis@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 12:48:42 by aakaamis          #+#    #+#             */
-/*   Updated: 2025/12/23 21:04:41 by marvin           ###   ########.fr       */
+/*   Updated: 2025/12/24 11:39:56 by aakaamis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,28 @@
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	check_minus_signs(&s1, &s2);
-	while (s1[i] && s2[j])
+	if (s1[i] == '+')
+		i++;
+	if (s2[j] == '+')
+		j++;
+	while (s1[i] || s2[j])
 	{
-		if (s1[i] == s2[j])
-			return (s1[i] - s2[j]);
-		else if (s1[i] != s2[j])
+		if (s1[i] > s2[j])
+			return ((unsigned char)(s1[i]) - (unsigned char)(s2[j]));
+		else if (s1[i] < s2[i])
 		{
-			if (s1[i] == '+' && ft_isdigitt(s2[j]))
-				i++;
-			else if (s2[j] == '+' && ft_isdigitt(s1[i]))
-				j++;
-			else
-				return (s1[i] - s2[j]);
+			return ((unsigned char)(s1[i]) - (unsigned char)(s2[j]));
 		}
-		else
-			return (s1[i] - s2[j]);
+		i++;
+		j++;
 	}
-	return (1);
+	return (0);
 }
 
 int	check_duplicate(char **str)
